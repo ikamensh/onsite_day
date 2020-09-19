@@ -40,6 +40,7 @@ def synergy_score(team: Team) -> Dict[int, float]:
     n_connections = 0
     for uid, connected in team.connections.items():
         n_connections += len(connected)
+
     if not n_connections:
         return {i: 0.5 for i in range(5)}
 
