@@ -32,8 +32,8 @@
         "first_name": "Jim",
         "last_name": "Raynor",
         "monday": 2,
-        "tuesday": 5,
-        "wednesday": 5,
+        "tuesday": 4,
+        "wednesday": 4,
         "thursday": 2,
         "friday": 1,
         "class": "User"
