@@ -4,9 +4,9 @@ from flask import Flask, request
 import os.path
 
 import utils
-from persistence import get_team, get_user
+from persistence import get_team, get_user, load_data
 
-
+load_data()  # Load in dummy data: TODO: change this once we have a real app
 app = Flask(__name__)
 
 
@@ -21,7 +21,7 @@ def get_team():
     # results maps user-> scores, favorable users (with score better than 0)
     if 'team_id' not in request.args:
         return 'team_id is missing in the request.', 400
-    team_id = request.args['team_id']
+    team_id = int(request.args['team_id'])
 
     try:
         team = get_team(team_id)
@@ -35,7 +35,8 @@ def get_team():
 def user_route():
     if 'user_id' not in request.args:
         return 'user_id is missing in the request.', 400
-    user_id = request.args['user_id']
+    user_id = int(request.args['user_id'])
+
     try:
         user = get_user(user_id)
     except Exception as e:
@@ -54,15 +55,15 @@ def post_rule():
     data = request.json
     if 'user_id' not in data:
         return 'user_id is missing in the request.', 400
-    user_id = data['user_id']
+    user_id = int(data['user_id'])
 
     if 'day' not in data:
         return 'day is missing in the request.', 400
-    day = data['day']
+    day = int(data['day'])
 
     if 'preference' not in data:
         return 'preference is missing in the request.', 400
-    preference = data['preference']
+    preference = int(data['preference'])
 
     try:
         user = get_user(user_id)
@@ -82,9 +83,8 @@ def post_rule():
     else:
         return "invalid day id, must be between 0 and 4", 400
 
-    return "successfully posted the rule", 200
-
+    return "Successfully posted the rule", 200
 
 
 if __name__ == '__main__':
-    app.run()
+    app.run(debug=True)
