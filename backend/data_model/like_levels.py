@@ -1,7 +1,6 @@
-import enum
+from enum import IntEnum
 
-
-class LikeLevel(enum.Enum):
+class LikeLevel(IntEnum):
     DISLIKE = 0
     MINOR_DISLIKE = 1
     NO_PREF = 2

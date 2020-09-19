@@ -9,5 +9,6 @@ amazon_team = Team(1, "IFS", [user1])
 import json
 
 with open("test.json", 'w') as f:
-    json.dumps(user1.__dict__)
+    print(json.dumps(user1.__dict__))
+    print(json.dumps(amazon_team.__dict__))
 
