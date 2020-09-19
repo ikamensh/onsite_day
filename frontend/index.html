@@ -1,0 +1,503 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <title>OnSite Day Calculation</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="description" content="OnSite Day Calculation">
+        
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+        
+        <link href="css/stack-interface.css" rel="stylesheet" type="text/css" media="all" />
+        <link href="css/socicon.css" rel="stylesheet" type="text/css" media="all" />
+        <link href="css/lightbox.min.css" rel="stylesheet" type="text/css" media="all" />
+        <link href="css/flickity.css" rel="stylesheet" type="text/css" media="all" />
+        <link href="css/iconsmind.css" rel="stylesheet" type="text/css" media="all" />
+        <link href="css/jquery.steps.css" rel="stylesheet" type="text/css" media="all" />
+        <link href="css/theme.css" rel="stylesheet" type="text/css" media="all" />
+        <link href="css/custom.css" rel="stylesheet" type="text/css" media="all" />
+        <link href="https://fonts.googleapis.com/css?family=Open+Sans:200,300,400,400i,500,600,700%7CMerriweather:300,300i" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.20.0/axios.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+
+    </head>
+    <body class=" ">
+        <a id="start"></a>
+        <div class="nav-container ">
+            <div class="bar bar--sm visible-xs">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-3 col-md-2">
+                            <a href="index.html">
+                                <img class="logo logo-dark" alt="logo" src="img/logo-dark.png" />
+                                <img class="logo logo-light" alt="logo" src="img/logo-light.png" />
+                            </a>
+                        </div>
+                        <div class="col-9 col-md-10 text-right">
+                            <a href="#" class="hamburger-toggle" data-toggle-class="#menu1;hidden-xs">
+                                <i class="icon icon--sm stack-interface stack-menu"></i>
+                            </a>
+                        </div>
+                    </div>
+                    <!--end of row-->
+                </div>
+                <!--end of container-->
+            </div>
+            <!--end bar-->
+            <nav id="menu1" class="bar bar--sm bar-1 hidden-xs ">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-lg-1 col-md-2 hidden-xs">
+                            <div class="bar__module">
+                                <a href="index.html">
+                                    <img class="logo logo-dark" alt="logo" src="img/logo-dark.png" />
+                                    <img class="logo logo-light" alt="logo" src="img/logo-light.png" />
+                                </a>
+                            </div>
+                            <!--end module-->
+                        </div>
+                        <div class="col-lg-11 col-md-12 text-right text-left-xs text-left-sm">
+                            <div class="bar__module">
+                                <ul class="menu-horizontal text-left">
+                                    <li>
+                                        <a href="#">
+                                            Home
+                                        </a>    
+                                    </li>
+                                    <li>
+                                        <a href="#">
+                                            About
+                                        </a>    
+                                    </li>
+                                    <li>
+                                        <a href="#">
+                                            Contact
+                                        </a>    
+                                    </li>
+                                </ul>
+                            </div>
+                            <!--end module-->
+                            <div class="bar__module">
+                                <span class="btn btn--sm btn--primary type--uppercase" data-toggle="modal" data-target="#startOSD" style="color:#fff;">
+                                    Lunch Now
+                                </span>
+                            </div>
+                            <!--end module-->
+                        </div>
+                    </div>
+                    <!--end of row-->
+                </div>
+                <!--end of container-->
+            </nav>
+            <!--end bar-->
+        </div>
+        <div class="main-container" id="app">
+            <section class="cover height-80 text-center">
+                <div class="container pos-vertical-center">
+                    <div class="row">
+                        <div class="col-md-10 col-lg-10">
+                            <h1>find a day in the week which would suit</h1>
+                            <h1 class="color--primary">everyone</h1>
+                            <h1>to be onsite to have team events</h1> 
+                            <span class="btn btn--primary type--uppercase" style="color:#fff;" data-toggle="modal" data-target="#startOSD" >
+                                    Launch The Builder
+                            </span>
+                            <div class="modal-instance block">
+                                <div class="video-play-icon video-play-icon--xs modal-trigger bg--primary"></div>
+                                <span>Watch Overview</span>
+                                <!--end of modal-container-->
+                            </div>
+                            <!--end of modal instance-->
+                        </div>
+                    </div>
+                    <!--end of row-->
+                </div>
+                <!--end of container-->
+            </section>
+            <section class="cta cta-4 space--xxs unpad--bottom">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-12 text-center">
+                            <hr>
+                            <span class="label label--inline">Sale</span>
+                            <span>Lorem ispum dolore sit amet....</span>
+                        </div>
+                    </div>
+                    <!--end of row-->
+                </div>
+                <!--end of container-->
+            </section>
+            <section>
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="feature feature-2 boxed boxed--border">
+                                <i class="icon icon-Clock-Back color--primary"></i>
+                                <div class="feature__body">
+                                    <p>
+                                        Save time with a multitude of styled components designed to showcase your content
+                                    </p>
+                                </div>
+                            </div>
+                            <!--end feature-->
+                        </div>
+                        <div class="col-md-4">
+                            <div class="feature feature-2 boxed boxed--border">
+                                <i class="icon icon-Duplicate-Window color--primary"></i>
+                                <div class="feature__body">
+                                    <p>
+                                        Construct mockups or production-ready pages in-browser with Variant Page Builder
+                                    </p>
+                                </div>
+                            </div>
+                            <!--end feature-->
+                        </div>
+                        <div class="col-md-4">
+                            <div class="feature feature-2 boxed boxed--border">
+                                <i class="icon icon-Life-Jacket color--primary"></i>
+                                <div class="feature__body">
+                                    <p>
+                                        Take comfort in 6 months included support with a dedicated support forum
+                                    </p>
+                                </div>
+                            </div>
+                            <!--end feature-->
+                        </div>
+                    </div>
+                    <!--end of row-->
+                </div>
+                <!--end of container-->
+            </section>
+            <section class="switchable switchable--switch feature-large">
+                <div class="container">
+                    <div class="row justify-content-around">
+                        <div class="col-md-6 col-12">
+                            <div class="video-cover border--round box-shadow-wide">
+                                <div class="background-image-holder">
+                                    <img alt="image" src="img/landing-22.jpg" />
+                                </div>
+                                <div class="video-play-icon"></div>
+                                <iframe data-src="https://www.youtube.com/embed/6p45ooZOOPo?autoplay=1" allowfullscreen="allowfullscreen"></iframe>
+                            </div>
+                            <!--end video cover-->
+                        </div>
+                        <div class="col-md-6 col-lg-5">
+                            <div class="switchable__text">
+                                <h2>Perfect components for modern startups</h2>
+                                <p class="lead">
+                                    Launching an attractive and scalable website quickly and affordably is important for modern startups &mdash; Stack offers massive value without looking 'bargain-bin'.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <!--end of row-->
+                </div>
+                <!--end of container-->
+            </section>
+            <section class="space--sm unpad--bottom switchable text-center testimonial testimonial-1 bg--secondary">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-6 col-lg-5">
+                            <img alt="Image" src="img/avatar-large-1.png" />
+                        </div>
+                        <div class="col-md-6">
+                            <div class="switchable__text">
+                                <blockquote>
+                                    &ldquo;There's a feeling of structure that you can't find in other templates &mdash; Stack has become my default template.&rdquo;
+                                </blockquote>
+                                <h5>Jason Briggs</h5>
+                                <span>Envato Customer</span>
+                            </div>
+                        </div>
+                    </div>
+                    <!--end of row-->
+                </div>
+                <!--end of container-->
+            </section>
+            <footer class="text-center space--sm footer-5  ">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="heading-block">
+                                <ul class="list-inline list--hover">
+                                    <li>
+                                        <a href="#">
+                                            <span>Our Company</span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="#">
+                                            <span>Locations</span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="#">
+                                            <span>Work With Us</span>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div>
+                                <ul class="social-list list-inline list--hover">
+                                    <li>
+                                        <a href="#">
+                                            <i class="socicon socicon-google icon icon--xs"></i>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="#">
+                                            <i class="socicon socicon-twitter icon icon--xs"></i>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="#">
+                                            <i class="socicon socicon-facebook icon icon--xs"></i>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="#">
+                                            <i class="socicon socicon-instagram icon icon--xs"></i>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div>
+                                <span class="type--fine-print">&copy;
+                                    <span class="update-year"></span> OnSite Day Calculation</span>
+                                <a class="type--fine-print" href="#">Privacy Policy</a>
+                                <a class="type--fine-print" href="#">Legal</a>
+                            </div>
+                        </div>
+                    </div>
+                    <!--end of row-->
+                </div>
+                <!--end of container-->
+            </footer>
+
+
+            <div class="modal fade" id="startOSD" tabindex="-1" aria-labelledby="startOSD" aria-hidden="true">
+              <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+                <div class="modal-content">
+                  <div class="modal-body text-center">
+                    <h2>How many days you want to work on site?</h2>
+                    <div class="row m-0 p-0">
+                        <div class="col-2 offset-1">
+                            <div :class="roundNumber(1)" @click="setDaysOnSite(1)">1</div>
+                        </div>
+                        <div class="col-2">
+                            <div :class="roundNumber(2)" @click="setDaysOnSite(2)">2</div>
+                        </div>
+                        <div class="col-2">
+                            <div :class="roundNumber(3)" @click="setDaysOnSite(3)">3</div>
+                        </div>
+                        <div class="col-2">
+                            <div :class="roundNumber(4)" @click="setDaysOnSite(4)">4</div>
+                        </div>
+                        <div class="col-2">
+                            <div v-bind:class="roundNumber(5)" @click="setDaysOnSite(5)">5</div>
+                        </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="modal fade" id="banDays" tabindex="-1" aria-labelledby="banDays" aria-hidden="true">
+              <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+                <div class="modal-content">
+                  <div class="modal-body text-center">
+                    <h2>Ban the day you don't want to work onsite</h2>
+                    <div class="row m-0 p-0">
+                        <div class="col-4 p-1">
+                            <div :class="btnDay(0)" @click="banADay(0)">Monday</div>
+                        </div>
+                        <div class="col-4 p-1">
+                            <div :class="btnDay(1)" @click="banADay(1)">Tuesday</div>
+                        </div>
+                        <div class="col-4 p-1">
+                            <div :class="btnDay(2)" @click="banADay(2)">Wednesday</div>
+                        </div>
+                        <div class="col-4 offset-2 p-1">
+                            <div :class="btnDay(3)" @click="banADay(3)">Thursday</div>
+                        </div>
+                        <div class="col-4 p-1">
+                            <div v-bind:class="btnDay(4)" @click="banADay(4)">Friday</div>
+                        </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="modal fade" id="preferredDay" tabindex="-1" aria-labelledby="preferredDay" aria-hidden="true">
+              <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+                <div class="modal-content">
+                  <div class="modal-body text-center">
+                    <h2>Select your preferred day</h2>
+                    <div class="row m-0 p-0">
+                        <div class="col-4 p-1">
+                            <div :class="btnPrefDay(0)" @click="preferredDay(0)" v-if="this.onSiteDays.day!=0">Monday</div>
+                            <div class="width100 btn btn--sm btn-danger" v-if="this.onSiteDays.day==0">Monday</div>
+                        </div>
+                        <div class="col-4 p-1">
+                            <div :class="btnPrefDay(1)" @click="preferredDay(1)" v-if="this.onSiteDays.day!=1">Tuesday</div>
+                            <div class="width100 btn btn--sm btn-danger" v-if="this.onSiteDays.day==1">Tuesday</div>
+                        </div>
+                        <div class="col-4 p-1">
+                            <div :class="btnPrefDay(2)" @click="preferredDay(2)" v-if="this.onSiteDays.day!=2">Wednesday</div>
+                            <div class="width100 btn btn--sm btn-danger" v-if="this.onSiteDays.day==2">Wednesday</div>
+                        </div>
+                        <div class="col-4 offset-2 p-1">
+                            <div :class="btnPrefDay(3)" @click="preferredDay(3)" v-if="this.onSiteDays.day!=3">Thursday</div>
+                            <div class="width100 btn btn--sm btn-danger" v-if="this.onSiteDays.day==3">Thursday</div>
+                        </div>
+                        <div class="col-4 p-1">
+                            <div v-bind:class="btnPrefDay(4)" @click="preferredDay(4)" v-if="this.onSiteDays.day!=4">Friday</div>
+                            <div class="width100 btn btn--sm btn-danger" v-if="this.onSiteDays.day==4">Friday</div>
+                        </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="modal fade" id="endOSD" tabindex="-1" aria-labelledby="endOSD" aria-hidden="true">
+              <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+                <div class="modal-content">
+                  <div class="modal-body text-center">
+                    <h2>How happy you'd be to work onsite on {{echoDay(this.onSiteDays.preferences)}}?</h2>
+                    <div class="row m-0 p-0">
+                        <div class="col-2 offset-1">
+                            <img src="img/0.png" @click="setHappines(0)" class="width100 cursorPointer" />
+                        </div>
+                        <div class="col-2">
+                            <img src="img/1.png" @click="setHappines(1)" class="width100 cursorPointer" />
+                        </div>
+                        <div class="col-2">
+                            <img src="img/2.png" @click="setHappines(2)" class="width100 cursorPointer" />
+                        </div>
+                        <div class="col-2">
+                            <img src="img/3.png" @click="setHappines(3)" class="width100 cursorPointer" />
+                        </div>
+                        <div class="col-2">
+                            <img src="img/4.png" @click="setHappines(4)" class="width100 cursorPointer" />
+                        </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+
+        </div>
+        <!--<div class="loader"></div>-->
+        <a class="back-to-top inner-link" href="#start" data-scroll-class="100vh:active">
+            <i class="stack-interface stack-up-open-big"></i>
+        </a>
+	
+        <script>
+            let app = new Vue({
+                el: '#app',
+                data: {
+                    onSiteDays:{
+                        team_id:1,
+                        user_id:null,
+                        daysOnSite:0,
+                        day:null,
+                        preferences:null
+                    },
+                },
+                watch:{
+                    onSiteDays: {
+                        deep: true,
+                        handler:function(val, oldVal){
+                            console.log(val);
+                        },
+                    }
+                },
+                methods:{
+                    uuid(){
+                        let dt = new Date().getTime();
+                        let uuid = 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
+                            let r = (dt + Math.random()*16)%16 | 0;
+                            dt = Math.floor(dt/16);
+                            return (c=='x' ? r :(r&0x3|0x8)).toString(16);
+                        });
+                        return uuid;
+                    },
+                    echoDay(day){
+                        if(day==0){return 'Monday';}
+                        if(day==1){return 'Tuesday';}
+                        if(day==2){return 'Wednesday';}
+                        if(day==3){return 'Thursday';}
+                        if(day==4){return 'Friday';}
+                    },
+                    roundNumber(days){
+                        if(this.onSiteDays.days == days){
+                            return 'roundNumber roundNumberActive';
+                        }
+                        return 'roundNumber';
+                    },
+                    btnDay(day){
+                        if(this.onSiteDays.day == day){
+                            return 'width100 btn btn--sm btn-danger';
+                        }
+                        return 'width100 btn btn--sm btn--secondary';
+                    },
+                    btnPrefDay(day){
+                        if(this.onSiteDays.preferences == day){
+                            return 'width100 btn btn--sm btn--primary';
+                        }
+                        return 'width100 btn btn--sm btn--secondary';
+                    },
+                    setDaysOnSite(days){
+                        let onsite = this.onSiteDays;
+                        onsite.days = days;
+                        this.onSiteDays = onsite;
+
+                        $('#startOSD').modal('hide');
+                        $('#banDays').modal('show');
+                        window.localStorage.setItem('onsiteDay', JSON.stringify(this.onSiteDays));
+                    },
+                    banADay(day){
+                        let onsite = this.onSiteDays;
+                        onsite.day = day;
+                        this.onSiteDays = onsite;
+
+                        $('#banDays').modal('hide');
+                        $('#preferredDay').modal('show');
+                        window.localStorage.setItem('onsiteDay', JSON.stringify(this.onSiteDays));
+                    },
+                    preferredDay(day){
+                        let onsite = this.onSiteDays;
+                        onsite.preferences = day;
+                        this.onSiteDays = onsite;
+
+                        $('#preferredDay').modal('hide');
+                        $('#endOSD').modal('show');
+                        window.localStorage.setItem('onsiteDay', JSON.stringify(this.onSiteDays));
+                    },
+                    setHappines(happy){
+                        $('#endOSD').modal('hide');
+                        window.Locations = 'result.html';
+                    }
+                },
+                created(){
+                    if(this.user_id==null){
+                        this.onSiteDays.user_id = this.uuid();
+                    }
+                    let onsiteDay = window.localStorage.getItem('onsiteDay');
+                    if(onsiteDay==null){
+                        window.localStorage.setItem('onsiteDay', JSON.stringify(this.onSiteDays));
+                    }else{
+                        this.onSiteDays = JSON.parse(onsiteDay);
+                    }
+
+                }
+            })
+        </script>
+    </body>
+</html>

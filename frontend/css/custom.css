@@ -1,0 +1,23 @@
+/*! Place your custom styles here */
+.modal-body {
+	padding:40px 15px;
+}
+.roundNumber {
+	padding:15px 17px;
+	height:60px;
+	width:60px;
+	border:1px solid #787878;
+	border-radius:50%;
+	font-size:28pt;
+	color:#4a90e2;
+	cursor: pointer;
+}
+.roundNumberActive {
+	background: #4a90e2;
+	color:#fff;
+	border:1 solid #4a90e2;
+}
+.width100 {
+	width:100%;
+}
+.cursorPointer{cursor: pointer;}
