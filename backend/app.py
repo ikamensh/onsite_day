@@ -4,8 +4,7 @@ from flask import Flask, request
 import os.path
 
 import utils
-from data_model.team import get_team
-from data_model.user import get_user
+from persistence import get_team, get_user
 
 
 app = Flask(__name__)
