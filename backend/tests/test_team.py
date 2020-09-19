@@ -10,4 +10,4 @@ amazon_team = Team(1, "IFS", [user1])
 def test_cycles():
     elem = json.loads(amazon_team.to_json())
     cycled = Team.from_json(elem)
-    assert cycled is amazon_team
+    assert cycled == amazon_team
