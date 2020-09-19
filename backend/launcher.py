@@ -8,7 +8,12 @@ amazon_team = Team(1, "IFS", [user1])
 
 import json
 
-with open("test.json", 'w') as f:
-    print(json.dumps(user1.__dict__))
-    print(json.dumps(amazon_team.__dict__))
 
+def my_serialize(x):
+    if hasattr(x, "__dict__"):
+        return x.__dict__
+    else:
+        return str(x)
+
+with open("test.json", 'w') as f:
+    json.dump(amazon_team.__dict__, f, default=my_serialize)
