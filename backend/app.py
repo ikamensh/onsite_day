@@ -1,18 +1,13 @@
 import json
+import os
 
-from flask import Flask, request
+from flask import Flask, request, send_from_directory
 
 import utils
 from persistence import get_team, get_user, load_data
 
 load_data()  # Load in dummy data: TODO: change this once we have a real app
-app = Flask(__name__)
-
-
-@app.route('/')
-def hello_world():
-    # TODO: return static content
-    return 'Hello World!'
+app = Flask(__name__, static_url_path='', static_folder='../frontend', template_folder='../frontend')
 
 
 @app.route('/team')
@@ -121,6 +116,11 @@ def connect():
 
     team.add_connection(user_from, user_to)
     return "added connection", 200
+
+
+@app.route('/')
+def send_js():
+    return send_from_directory(os.path.join(os.pardir, 'frontend'), 'index.html')
 
 
 if __name__ == '__main__':
