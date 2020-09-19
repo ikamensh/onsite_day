@@ -4,6 +4,7 @@ from data_model.user import User
 
 all_teams = {}
 
+
 class Team:
     def __init__(self, team_id: int, team_name: str, users: List[User]):
         self.team_id = team_id
@@ -13,6 +14,3 @@ class Team:
             raise Exception(f"Team ID {team_id} is already in use.")
 
         all_teams[team_id] = self
-
-
-

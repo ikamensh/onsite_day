@@ -1,5 +1,6 @@
 from enum import IntEnum
 
+
 class LikeLevel(IntEnum):
     DISLIKE = 0
     MINOR_DISLIKE = 1
@@ -11,4 +12,5 @@ class LikeLevel(IntEnum):
         return self.name.lower()
 
 
-print(LikeLevel.LIKE)
+if __name__ == '__main__':
+    print(LikeLevel.LIKE)

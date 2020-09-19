@@ -1,0 +1,12 @@
+{
+  "user_id": 1,
+  "img_url": "https://randomuser.me/api/portraits/lego/8.jpg",
+  "first_name": "Elijah",
+  "last_name": "Ku",
+  "monday": 2,
+  "tuesday": 2,
+  "wednesday": 2,
+  "thursday": 2,
+  "friday": 2,
+  "class": "User"
+}
