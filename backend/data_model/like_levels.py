@@ -14,3 +14,5 @@ class LikeLevel(IntEnum):
 
 if __name__ == '__main__':
     print(LikeLevel.LIKE)
+
+    print(LikeLevel(2))
