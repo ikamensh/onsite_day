@@ -1,9 +1,11 @@
-import json
-
 from data_model.json_serializable import JsonSerializable
 from data_model.like_levels import LikeLevel
 
-all_users = {}
+_all_users = {}
+
+
+def get_user(user_id: int):
+    return _all_users[user_id]
 
 
 class Weekdays:
@@ -22,13 +24,14 @@ class User(JsonSerializable):
         would_be_result = super(User, cls).__new__(cls)
         would_be_result.__init__(user_id, *args, **kwargs)
 
-        if user_id in all_users:
-            existing = all_users[user_id]
+        if user_id in _all_users:
+            existing = _all_users[user_id]
             if existing != would_be_result:
                 raise Exception(
                     f"User ID {user_id} is already in use. Tried to create a non-identical instance.")
             return existing
         else:
+            _all_users[user_id] = would_be_result
             return would_be_result
 
     def __init__(
@@ -54,8 +57,6 @@ class User(JsonSerializable):
         self.thursday = thursday
         self.friday = friday
 
-        all_users[user_id] = self
-
     def __eq__(self, other):
         if not isinstance(other, User):
             return False
@@ -64,4 +65,4 @@ class User(JsonSerializable):
     @staticmethod
     def from_json(elem):
         uid = int(elem["user_id"])
-        return all_users[uid]
+        return _all_users[uid]

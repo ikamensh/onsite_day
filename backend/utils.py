@@ -1,3 +1,4 @@
+
 def default_serialize(x):
     if hasattr(x, "__dict__"):
         result = dict(x.__dict__)
