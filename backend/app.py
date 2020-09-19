@@ -98,6 +98,10 @@ def connect():
         return 'to user_id is missing in the request.', 400
     user_to = int(data['to'])
 
+    if 'team_id' not in data:
+        return 'team_id is missing in the request.', 400
+    team_id = int(data['team_id'])
+
     # check no self loop
     if user_from == user_to:
         return "cannot want to work with yourself", 400
@@ -109,6 +113,13 @@ def connect():
     except Exception as e:
         return f'invalid user id {e}', 400
 
+    # validate team
+    try:
+        team = get_team(team_id)
+    except Exception as e:
+        return f'invalid team id {e}', 400
+
+    team.add_connection(user_from, user_to)
     return "added connection", 200
 
 
