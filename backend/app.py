@@ -52,17 +52,18 @@ def get_results():
 
 @app.route('/rule', methods=['POST'])
 def post_rule():
-    if 'user_id' not in request.args:
+    data = request.json
+    if 'user_id' not in data:
         return 'user_id is missing in the request.', 400
-    user_id = request.args['user_id']
+    user_id = data['user_id']
 
-    if 'day' not in request.args:
+    if 'day' not in data:
         return 'day is missing in the request.', 400
-    day = request.args['day']
+    day = data['day']
 
-    if 'preference' not in request.args:
+    if 'preference' not in data:
         return 'preference is missing in the request.', 400
-    preference = request.args['preference']
+    preference = data['preference']
 
     try:
         user = get_user(user_id)
