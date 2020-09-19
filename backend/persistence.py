@@ -11,7 +11,7 @@ _all_teams = {}
 _all_users = {}
 
 
-def save_data():
+def save_data(teams_file=teams_file):
     with open(teams_file, 'w') as f:
         json.dump(list(_all_teams.values()), f, default=default_serialize)
 
