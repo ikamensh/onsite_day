@@ -10,6 +10,9 @@ class Weekdays:
     friday = "friday"
 
     all_days = [monday, tuesday, wednesday, thursday, friday]
+    to_int = {
+        x: i  for i, x in enumerate(all_days)
+    }
 
 
 class User(JsonSerializable):
