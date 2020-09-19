@@ -13,6 +13,30 @@
         "thursday": 2,
         "friday": 2,
         "class": "User"
+      },
+      {
+        "user_id": 2,
+        "img_url": "https://randomuser.me/api/portraits/lego/8.jpg",
+        "first_name": "Sarah",
+        "last_name": "Conner",
+        "monday": 3,
+        "tuesday": 2,
+        "wednesday": 3,
+        "thursday": 2,
+        "friday": 2,
+        "class": "User"
+      },
+      {
+        "user_id": 3,
+        "img_url": "https://randomuser.me/api/portraits/lego/8.jpg",
+        "first_name": "Jim",
+        "last_name": "Raynor",
+        "monday": 2,
+        "tuesday": 5,
+        "wednesday": 5,
+        "thursday": 2,
+        "friday": 1,
+        "class": "User"
       }
     ],
     "team_name": "IFS",
