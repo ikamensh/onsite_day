@@ -17,7 +17,7 @@ def hello_world():
 
 
 @app.route('/team')
-def get_team():
+def team_route():
     # results maps user-> scores, favorable users (with score better than 0)
     if 'team_id' not in request.args:
         return 'team_id is missing in the request.', 400
