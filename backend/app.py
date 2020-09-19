@@ -1,7 +1,6 @@
 import json
 
 from flask import Flask, request
-import os.path
 
 import utils
 from persistence import get_team, get_user, load_data
@@ -84,6 +83,33 @@ def post_rule():
         return "invalid day id, must be between 0 and 4", 400
 
     return "Successfully posted the rule", 200
+
+
+@app.route('/connect', methods=['POST'])
+def connect():
+    data = request.json
+
+    # validate input
+    if 'from' not in data:
+        return 'from user_id is missing in the request.', 400
+    user_from = int(data['from'])
+
+    if 'to' not in data:
+        return 'to user_id is missing in the request.', 400
+    user_to = int(data['to'])
+
+    # check no self loop
+    if user_from == user_to:
+        return "cannot want to work with yourself", 400
+
+    # validate users
+    try:
+        get_user(user_from)
+        get_user(user_to)
+    except Exception as e:
+        return f'invalid user id {e}', 400
+
+    return "added connection", 200
 
 
 if __name__ == '__main__':
