@@ -10,7 +10,7 @@ class Team(JsonSerializable):
         self.team_id = team_id
         self.users = users
         self.team_name = team_name
-        self.connections = defaultdict(set)
+        self.connections = defaultdict(list)
         if connections:
             self.connections.update(connections)
 
@@ -20,6 +20,7 @@ class Team(JsonSerializable):
         del elem["class"]
         elem = dict(elem)
         elem["users"] = [User.from_json(u) for u in elem["users"]]
+        elem["connections"] = {int(k): v for k, v  in elem["connections"].items()}
         return Team(**elem)
 
 
@@ -31,8 +32,8 @@ class Team(JsonSerializable):
         assert user_id_1 in this_team, f"User {user_id_1} is not part of team {self.team_name}"
         assert user_id_2 in this_team, f"User {user_id_2} is not part of team {self.team_name}"
 
-        self.connections[user_id_1].add(user_id_2)
-        self.connections[user_id_2].add(user_id_1)
+        self.connections[user_id_1].append(user_id_2)
+        self.connections[user_id_2].append(user_id_1)
 
     def __eq__(self, other):
         if not isinstance(other, Team):
@@ -42,5 +43,6 @@ class Team(JsonSerializable):
                 self.team_id == other.team_id,
                 self.users == other.users,
                 self.team_name == other.team_name,
+                self.connections == other.connections
             ]
         )

@@ -5,4 +5,4 @@ def default_serialize(x):
         result["class"] = x.__class__.__name__
         return result
     else:
-        return str(x)
+        return repr(x)

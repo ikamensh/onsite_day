@@ -4,7 +4,10 @@ from data_model.team import Team
 from data_model.user import User
 
 user1 = User(1, "https://randomuser.me/api/portraits/lego/8.jpg", "Elijah", "Ku")
-amazon_team = Team(1, "IFS", [user1])
+user2 = User(2, "https://randomuser.me/api/portraits/lego/8.jpg", "Eli", "Kuh")
+
+amazon_team = Team(1, "IFS", [user1, user2])
+amazon_team.add_connection(1, 2)
 
 
 def test_cycles():

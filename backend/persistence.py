@@ -52,9 +52,9 @@ def add_team(team: Team):
     _all_teams[team.team_id] = team
 
 
-def get_team(team_id: int):
+def get_team(team_id: int) -> Team:
     return _all_teams[team_id]
 
 
-def get_user(user_id: int):
+def get_user(user_id: int) -> User:
     return _all_users[user_id]

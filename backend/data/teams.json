@@ -40,6 +40,14 @@
       }
     ],
     "team_name": "IFS",
+    "connections": {
+      "1": [
+        2
+      ],
+      "2": [
+        1
+      ]
+    },
     "class": "Team"
   }
 ]
