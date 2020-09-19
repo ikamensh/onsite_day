@@ -17,7 +17,7 @@ def average_score(team: Team) -> Dict[int, float]:
             score = getattr(user, day)
             scores[i].append(score)
 
-    scores_raw = {k: sum(v) / len(team.users) / 4 for k, v in scores.items()}
+    scores_raw = {day: sum(score) / len(team.users) / 4 for day, score in scores.items()}
     return scores_raw
 
 
