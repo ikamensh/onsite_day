@@ -159,7 +159,7 @@
                 <div class="container">
                     <div class="row">
                         <div class="col-md-10 col-lg-10 offset-1" v-if="results!=null">
-                            <line-chart :results="results"></line-chart>
+                            <bar-chart :results="results"></bar-chart>
                         </div>
                     </div>
                     <!--end of row-->
@@ -283,9 +283,21 @@
         </a>
     
         <script>
+            function argMax(array) {
+                return array.map((x, i) => [x, i]).reduce((r, a) => (a[0] > r[0] ? a : r))[1];
+            }
+            function getColor(array){
+                var maxEl = argMax(array);
+                return array.map((x,i) => {
+                    if (i == maxEl) {
+                        return '#56cb71';
+                    }
+                    return '#00BFFF';
+                });
+            }
 
-            Vue.component('line-chart', {
-              extends: VueChartJs.Line,
+            Vue.component('bar-chart', {
+              extends: VueChartJs.Bar,
               props:['results'],
               watch: { 
                 results: function(newVal, oldVal) { // watch it
@@ -294,18 +306,17 @@
               },
               methods:{
                 reloadChart(){
-
                     const self = this;
                     let result = [];
                     for(let i=0;i<5;i++){
-                        result.push(self.results[i]);
+                        result.push(self.results[i].toFixed(2));
                     }
                     this.renderChart({
                       labels: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'],
                       datasets: [
                         {
-                          label: 'Most Preferred Day',
-                          backgroundColor: '#56cb71',
+                          label: 'Preferance for weekdays',
+                          backgroundColor: getColor(result),
                           data: result
                         },
                       ]
