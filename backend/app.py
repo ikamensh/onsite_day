@@ -1,6 +1,6 @@
 import json
 import os
-
+from flask_cors import CORS
 from flask import Flask, request, send_from_directory
 
 from persistence import get_team, get_user, load_data
@@ -13,7 +13,7 @@ app = Flask(
     static_folder="../frontend",
     template_folder="../frontend",
 )
-
+CORS(app)
 
 @app.route("/team")
 def team_route():
