@@ -26,9 +26,13 @@
         <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.20.0/axios.min.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
 
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.1/Chart.min.js"></script>
+        <script src="https://unpkg.com/vue-chartjs/dist/vue-chartjs.min.js"></script>
     </head>
     <body class=" ">
+
         <a id="start"></a>
+        <span id="app">
         <div class="nav-container ">
             <div class="bar bar--sm visible-xs">
                 <div class="container">
@@ -82,6 +86,14 @@
                                     </li>
                                 </ul>
                             </div>
+                            <div class="bar__module">
+                                <span class="btn btn--sm btn--secondary type--uppercase"
+                                    v-if="user!=null" @click="logout()">
+                                    <img :src="user.img_url" style="width:40px;" />
+                                    {{user.first_name}} {{user.last_name}} Logout
+                                </span>
+                                
+                            </div>
                         </div>
                     </div>
                     <!--end of row-->
@@ -90,13 +102,29 @@
             </nav>
             <!--end bar-->
         </div>
-        <div class="main-container" id="app">
+        <div class="main-container">
             <section class="cover height-80 text-center">
                 <div class="container pos-vertical-center">
                     <div class="row">
-                        <div class="col-md-10 col-lg-10">
-
-
+                        <div class="col-md-10 col-lg-10 offset-1">
+                            <h2>Select your preferred day</h2>
+                            <div class="row m-0 p-0">
+                                <div class="col-4 p-1">
+                                    <div :class="btnPrefDay(0)" @click="preferredDay(0)">Monday</div>
+                                </div>
+                                <div class="col-4 p-1">
+                                    <div :class="btnPrefDay(1)" @click="preferredDay(1)">Tuesday</div>
+                                </div>
+                                <div class="col-4 p-1">
+                                    <div :class="btnPrefDay(2)" @click="preferredDay(2)">Wednesday</div>
+                                </div>
+                                <div class="col-4 offset-2 p-1">
+                                    <div :class="btnPrefDay(3)" @click="preferredDay(3)">Thursday</div>
+                                </div>
+                                <div class="col-4 p-1">
+                                    <div :class="btnPrefDay(4)" @click="preferredDay(4)">Friday</div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                     <!--end of row-->
@@ -108,8 +136,30 @@
                     <div class="row">
                         <div class="col-md-12 text-center">
                             <hr>
-                            <span class="label label--inline">Sale</span>
-                            <span>Lorem ispum dolore sit amet....</span>
+                            <span>Most preferrable day to work </span>
+                                <span class="label label--inline">on site</span>
+                        </div>
+                    </div>
+                    <!--end of row-->
+                </div>
+                <!--end of container-->
+            </section>
+            <section class="text-center">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-10 col-lg-10 offset-1" v-if="bestDay!=null">
+                            <h1 style="font-size:90pt;">
+                                {{echoDay(bestDay)}}
+                            </h1>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <section>
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-10 col-lg-10 offset-1" v-if="results!=null">
+                            <line-chart :results="results"></line-chart>
                         </div>
                     </div>
                     <!--end of row-->
@@ -117,36 +167,33 @@
                 <!--end of container-->
             </section>
             <section>
-                <div class="container">
+                <div class="container" v-if="team!=null && user!=null">
+                    <h4>People you are going to meet</h4>
                     <div class="row">
-                        <div class="col-md-4">
+                        <div class="col-md-4" v-for="(teamUser, indexUser) of team.users" 
+                        v-if="teamUser.user_id != user.user_id && willMeet(teamUser.user_id)">
                             <div class="feature feature-2 boxed boxed--border">
-                                <i class="icon icon-Clock-Back color--primary"></i>
+                                <img :src="teamUser.img_url" class="img-circle" />
                                 <div class="feature__body">
                                     <p>
-                                        Save time with a multitude of styled components designed to showcase your content
+                                        <strong>{{teamUser.first_name}} {{teamUser.last_name}}</strong><br />
+                                        <a href="#">Not Meet</a>
                                     </p>
                                 </div>
                             </div>
                             <!--end feature-->
                         </div>
-                        <div class="col-md-4">
+                    </div>
+                    <!--end of row-->
+                    <div class="row">
+                        <div class="col-md-4" v-for="(teamUser, indexUser) of team.users" 
+                        v-if="teamUser.user_id != user.user_id && !willMeet(teamUser.user_id)">
                             <div class="feature feature-2 boxed boxed--border">
-                                <i class="icon icon-Duplicate-Window color--primary"></i>
+                                <img :src="teamUser.img_url" class="img-circle" />
                                 <div class="feature__body">
                                     <p>
-                                        Construct mockups or production-ready pages in-browser with Variant Page Builder
-                                    </p>
-                                </div>
-                            </div>
-                            <!--end feature-->
-                        </div>
-                        <div class="col-md-4">
-                            <div class="feature feature-2 boxed boxed--border">
-                                <i class="icon icon-Life-Jacket color--primary"></i>
-                                <div class="feature__body">
-                                    <p>
-                                        Take comfort in 6 months included support with a dedicated support forum
+                                        <strong>{{teamUser.first_name}} {{teamUser.last_name}}</strong><br />
+                                        <span style="color:#4a90e2;cursor: pointer;" @click="meet(teamUser.user_id)">Meet</span>
                                     </p>
                                 </div>
                             </div>
@@ -157,18 +204,38 @@
                 </div>
                 <!--end of container-->
             </section>
-            
+                <div class="modal fade" id="endOSD" tabindex="-1" aria-labelledby="endOSD" aria-hidden="true">
+                  <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+                    <div class="modal-content">
+                      <div class="modal-body text-center" v-if="selectedDay!=null">
+                        <h2>How happy you'd be to work onsite on {{echoDay(selectedDay)}}?</h2>
+                        <div class="row m-0 p-0">
+                            <div class="col-2 offset-1">
+                                <img src="img/0.png" @click="setHappines(0)" class="width100 cursorPointer" />
+                            </div>
+                            <div class="col-2">
+                                <img src="img/1.png" @click="setHappines(1)" class="width100 cursorPointer" />
+                            </div>
+                            <div class="col-2">
+                                <img src="img/2.png" @click="setHappines(2)" class="width100 cursorPointer" />
+                            </div>
+                            <div class="col-2">
+                                <img src="img/3.png" @click="setHappines(3)" class="width100 cursorPointer" />
+                            </div>
+                            <div class="col-2">
+                                <img src="img/4.png" @click="setHappines(4)" class="width100 cursorPointer" />
+                            </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
             <footer class="text-center space--sm footer-5  ">
                 <div class="container">
                     <div class="row">
                         <div class="col-md-12">
                             <div class="heading-block">
                                 <ul class="list-inline list--hover">
-                                    <li>
-                                        <a href="#">
-                                            <span>Our Company</span>
-                                        </a>
-                                    </li>
                                     <li>
                                         <a href="#">
                                             <span>Locations</span>
@@ -183,16 +250,6 @@
                             </div>
                             <div>
                                 <ul class="social-list list-inline list--hover">
-                                    <li>
-                                        <a href="#">
-                                            <i class="socicon socicon-google icon icon--xs"></i>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="#">
-                                            <i class="socicon socicon-twitter icon icon--xs"></i>
-                                        </a>
-                                    </li>
                                     <li>
                                         <a href="#">
                                             <i class="socicon socicon-facebook icon icon--xs"></i>
@@ -219,40 +276,62 @@
             </footer>
 
         </div>
+    </span>
         <!--<div class="loader"></div>-->
         <a class="back-to-top inner-link" href="#start" data-scroll-class="100vh:active">
             <i class="stack-interface stack-up-open-big"></i>
         </a>
-	
+    
         <script>
+
+            Vue.component('line-chart', {
+              extends: VueChartJs.Line,
+              props:['results'],
+              watch: { 
+                results: function(newVal, oldVal) { // watch it
+                    this.reloadChart();
+                }
+              },
+              methods:{
+                reloadChart(){
+
+                    const self = this;
+                    let result = [];
+                    for(let i=0;i<5;i++){
+                        result.push(self.results[i]);
+                    }
+                    this.renderChart({
+                      labels: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'],
+                      datasets: [
+                        {
+                          label: 'Most Preferred Day',
+                          backgroundColor: '#56cb71',
+                          data: result
+                        },
+                      ]
+                    }, {responsive: true, maintainAspectRatio: false})
+                }
+              },
+              mounted (){
+                this.reloadChart();
+              }
+              
+            });
+
             let app = new Vue({
                 el: '#app',
                 data: {
-                    onSiteDays:{
-                        team_id:1,
-                        user_id:null,
-                        daysOnSite:0,
-                        day:null,
-                        preferences:null
-                    },
-                },
-                watch:{
-                    onSiteDays: {
-                        deep: true,
-                        handler:function(val, oldVal){
-                            console.log(val);
-                        },
-                    }
+                    mainUrl:'http://127.0.0.1:5000/',
+                    user:null,
+                    team:null,
+                    results:null,
+                    selectedDay:null,
+                    bestDay:null,
                 },
                 methods:{
-                    uuid(){
-                        let dt = new Date().getTime();
-                        let uuid = 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
-                            let r = (dt + Math.random()*16)%16 | 0;
-                            dt = Math.floor(dt/16);
-                            return (c=='x' ? r :(r&0x3|0x8)).toString(16);
-                        });
-                        return uuid;
+                    logout(){
+                        window.localStorage.setItem('onSiteUserId', null);
+                        window.location = 'index.html';
                     },
                     echoDay(day){
                         if(day==0){return 'Monday';}
@@ -261,66 +340,101 @@
                         if(day==3){return 'Thursday';}
                         if(day==4){return 'Friday';}
                     },
-                    roundNumber(days){
-                        if(this.onSiteDays.days == days){
-                            return 'roundNumber roundNumberActive';
-                        }
-                        return 'roundNumber';
-                    },
-                    btnDay(day){
-                        if(this.onSiteDays.day == day){
-                            return 'width100 btn btn--sm btn-danger';
-                        }
-                        return 'width100 btn btn--sm btn--secondary';
-                    },
                     btnPrefDay(day){
-                        if(this.onSiteDays.preferences == day){
-                            return 'width100 btn btn--sm btn--primary';
+                        if(this.bestDay == day){
+                            return 'width100 btn btn--sm btn-success p30';
                         }
-                        return 'width100 btn btn--sm btn--secondary';
-                    },
-                    setDaysOnSite(days){
-                        let onsite = this.onSiteDays;
-                        onsite.days = days;
-                        this.onSiteDays = onsite;
-
-                        $('#startOSD').modal('hide');
-                        $('#banDays').modal('show');
-                        window.localStorage.setItem('onsiteDay', JSON.stringify(this.onSiteDays));
-                    },
-                    banADay(day){
-                        let onsite = this.onSiteDays;
-                        onsite.day = day;
-                        this.onSiteDays = onsite;
-
-                        $('#banDays').modal('hide');
-                        $('#preferredDay').modal('show');
-                        window.localStorage.setItem('onsiteDay', JSON.stringify(this.onSiteDays));
+                        if(this.results!=null){
+                            if(this.results[day]<0.5){
+                                return 'width100 btn btn--sm btn-danger p30';
+                            }
+                            if(this.results[day]>=0.5 && this.results[day]<0.85){
+                                return 'width100 btn btn--sm btn-warning p30';
+                            }
+                            if(this.results[day]>=0.85){
+                                return 'width100 btn btn--sm btn-success p30';
+                            }
+                               
+                        }
+                        return 'width100 btn btn--sm btn--secondary p30';
                     },
                     preferredDay(day){
-                        let onsite = this.onSiteDays;
-                        onsite.preferences = day;
-                        this.onSiteDays = onsite;
-
-                        $('#preferredDay').modal('hide');
+                        this.selectedDay = day;
                         $('#endOSD').modal('show');
-                        window.localStorage.setItem('onsiteDay', JSON.stringify(this.onSiteDays));
                     },
-                    setHappines(happy){
+                    setHappines(preference){
+
+                        const self = this;
+
+                        axios.post(this.mainUrl+'rule',{
+                            team_id:self.team.team_id,
+                            user_id:self.user.user_id,
+                            day:self.selectedDay,
+                            preference:preference
+                        }).then(function (response) {
+                            if(response.data == 'Successfully posted the rule'){
+                                self.getResult();
+                            }
+                        }); 
                         $('#endOSD').modal('hide');
+                    },
+                    meet(to_user_id){
+                        console.log(to_user_id);
+                        const self = this;
+                        let params = {
+                            to:to_user_id,
+                            from:self.user.user_id,
+                            team_id:self.team.team_id
+                        };
+
+                        axios.post(this.mainUrl+'connect',params).then(function (response) {
+                            self.getTeam();
+                        }); 
+                    },
+                    willMeet(to_user_id){
+                        let returnValue = false;
+                        this.team.connections[this.user.user_id].map(function(i){
+                            if(i==to_user_id){
+                                returnValue = true;
+                            }
+                        })
+                        return returnValue;
+                    },
+                    async getTeam(){
+                    
+                        const self = this;
+                        let user_id = window.localStorage.getItem('onSiteUserId');
+                        await axios.get(this.mainUrl+'team?team_id=1').then(function (response) {
+                            self.team = response.data;
+                        }); 
+
+                        this.team.users.map(function(i){
+                            if(i.user_id == user_id){
+                                self.user = i;
+                            }
+                        })
+                    },
+                    getResult(){
+                        const self = this;
+                        let user_id = window.localStorage.getItem('onSiteUserId');
+                        axios.get(this.mainUrl+'results?team_id=1').then(function (response) {
+                            self.results = response.data;
+                            self.getBestDay();
+                        }); 
+                    },
+                    getBestDay(){
+                        const self = this;
+                        self.bestDay = 0;
+                        for(let i=0;i<5;i++){
+                            if(parseFloat(self.results[i])>parseFloat(self.results[self.bestDay])){
+                                self.bestDay = i;
+                            }
+                        }
                     }
                 },
                 created(){
-                    if(this.user_id==null){
-                        this.onSiteDays.user_id = this.uuid();
-                    }
-                    let onsiteDay = window.localStorage.getItem('onsiteDay');
-                    if(onsiteDay==null){
-                        window.localStorage.setItem('onsiteDay', JSON.stringify(this.onSiteDays));
-                    }else{
-                        this.onSiteDays = JSON.parse(onsiteDay);
-                    }
-
+                    this.getTeam();
+                    this.getResult();
                 }
             })
         </script>

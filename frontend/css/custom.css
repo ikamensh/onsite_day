@@ -21,3 +21,10 @@
 	width:100%;
 }
 .cursorPointer{cursor: pointer;}
+.p30 {padding:30px;}
+.img-circle{    
+	width: 50px;
+    border-radius: 50%;
+    margin-bottom: 0;
+    border: 1px solid #ccc;
+}

@@ -115,11 +115,11 @@ def connect():
 
     # validate input
     if "from" not in data:
-        return "from user_id is missing in the request.", 400
+        return "from user_from is missing in the request.", 400
     user_from = int(data["from"])
 
     if "to" not in data:
-        return "to user_id is missing in the request.", 400
+        return "to user_to is missing in the request.", 400
     user_to = int(data["to"])
 
     if "team_id" not in data:
