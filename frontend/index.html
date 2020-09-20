@@ -324,6 +324,7 @@
                     actAs(index){
                         window.localStorage.setItem('onSiteUserId', JSON.stringify(this.team.users[index].user_id));
                         this.user = this.team.users[index];
+                        window.open("./result.html");
                     },
                     async getTeam(){
                     
